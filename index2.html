@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Responsive Header with Hamburger</title>
+<style>
+ 
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f8ff;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(90deg, #003366, #0059b3);
+      padding: 1rem 0;
+      color: white;
+      box-shadow: 0 4px 6px #003366;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    nav ul li a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1, h2 {
+      color: #003366;
+    }
+
+    .project, article, form {
+      background-color: #ffffff;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-left: 4px solid #0099cc;
+      border-radius: 5px;
+    }
+
+    #contact {
+      background-color: #ffffff;
+      padding: 1.5rem;
+      margin: 1rem auto;
+      border-left: 4px solid #0099cc;
+      border-radius: 5px;
+      max-width: 900px;
+    }
+
+    #contact h2 {
+      color: #003366;
+      margin-bottom: 1rem;
+    }
+
+    #contact form label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+      color: #004080;
+    }
+
+    #contact form input,
+    #contact form textarea {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.4rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+
+    #contact form button {
+      margin-top: 1.5rem;
+      padding: 0.75rem;
+      width: 100%;
+      background-color: #0099cc;
+      color: white;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #contact form button:hover {
+      background-color: #0077aa;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #e6f2ff;
+      margin-top: 2rem;
+    }
+
+    .education-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .certificate {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .certificate img {
+      width: 100%;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .certificate-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 51, 102, 0.85);
+      color: white;
+      padding: 1rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease-in-out;
+      font-size: 0.9rem;
+    }
+
+    .certificate:hover .certificate-info {
+      transform: translateY(0);
+    }
+
+    .project-images {
+      display: none;
+      gap: 10px;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .project-images img {
+      width: 150px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+ 
+  
+  header {
+    background: #003366;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Logo or site name */
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  /* Navigation menu */
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
+  }
+  
+  nav ul li a:hover {
+    color: #f90;
+  }
+  
+  /* Hamburger button - hidden on desktop */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    width: 25px;
+    height: 20px;
+    justify-content: space-between;
+  }
+  
+  .hamburger div {
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+  }
+  
+  /* Responsive styles for phones */
+  @media (max-width: 768px) {
+    nav ul {
+      display: none; /* hide menu by default on phone */
+      flex-direction: column;
+      background: #003366;
+      position: absolute;
+      top: 60px; /* below header */
+      left: 0;
+      right: 0;
+      padding: 10px 0;
+    }
+    
+    nav ul.show {
+      display: flex; /* show menu when toggled */
+    }
+    
+    .hamburger {
+      display: flex;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Areesha Umar</div>
+  <nav>
+    <ul id="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#blogs">Blogs</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="hamburger" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false" role="button" tabindex="0">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</header>
+<main>
+  <section id="home">
+    <h1>Welcome to My Portfolio</h1>
+    <p>Hello! I'm <strong>Areesha Umar</strong>, a passionate and dedicated web developer...</p>
+  </section>
+
+  <section id="projects">
+    <h2>My Projects</h2>
+
+    <div class="project">
+      <h3>Daraz Like Store</h3>
+      <p>A website that provides functionality like Daraz Store </p>
+      <button onclick="showProjectImages('portfolio-images')">Show Images</button>
+      <div id="portfolio-images" class="project-images">
+        <img src="images/daraz ss.png" onclick="openLightbox(this.src)" />
+        <img src="images/daraz ss 2.png" onclick="openLightbox(this.src)" />
+        <img src="images/daraz ss 3.png" onclick="openLightbox(this.src)" />
+       
+         <img src="images/daraz ss 4.png" onclick="openLightbox(this.src)" />
+          <img src="images/daraz ss 5.png" onclick="openLightbox(this.src)" />
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Glow Guide</h3>
+      <p>Unlock your natural glow.</p>
+      <p>Link: <a href="https://skincareproductstore.netlify.app">skincareproductstore.netlify.app</a></p>
+      <button onclick="showProjectImages('taskmanager-images')">Show Images</button>
+      <div id="taskmanager-images" class="project-images">
+        <img src="images/glowguide1.png" onclick="openLightbox(this.src)" />
+        <img src="images/glowguide2.png" onclick="openLightbox(this.src)" />
+        <img src="images/glowguide3.png" onclick="openLightbox(this.src)" />
+         <img src="images/glowguide4.png" onclick="openLightbox(this.src)" />
+          <img src="images/glowguide5.png" onclick="openLightbox(this.src)" />
+           <img src="images/glowguide6.png" onclick="openLightbox(this.src)" />
+            <img src="images/glowguide7.png" onclick="openLightbox(this.src)" />
+             <img src="images/glowguide8.png" onclick="openLightbox(this.src)" />
+      </div>
+    </div>
+  </section>
+
+ <!-- Blogs -->
+    <section id="blogs">
+      <h2>Web Development Blogs</h2>
+      <article>
+  <h3>Why JavaScript Is Important</h3>
+  <p>JavaScript is a cornerstone technology of the web, standing alongside HTML and CSS to create engaging and interactive websites. While HTML provides structure and CSS handles styling, JavaScript brings a website to life with interactivity, dynamic content, and responsiveness. Without it, modern web experiences would feel static and outdated.</p>
+
+  <p>One of the key reasons JavaScript is so important is its ubiquity. It is the only programming language that runs natively in all major web browsers, making it essential for client-side development. Whether it's validating form inputs, creating sliders, displaying notifications, or enabling smooth animations, JavaScript is what makes these features possible without reloading the page.</p>
+
+  <p>Furthermore, JavaScript has evolved into a full-fledged programming ecosystem. With the introduction of <strong>Node.js</strong>, JavaScript can also run on the server side, enabling developers to use a single language throughout the full stack. Popular frameworks and libraries like <strong>React</strong>, <strong>Vue</strong>, and <strong>Angular</strong> have further extended its capabilities, helping developers build powerful web applications efficiently.</p>
+
+  <p>JavaScript's flexibility, huge community, and constant innovation make it indispensable. From startups to large-scale enterprise applications, it's used everywhere. If you're planning a career in web development, mastering JavaScript is not just recommended—it's absolutely essential.</p>
+</article>
+
+     <article>
+  <h3>Why We Choose Coding for Web Development</h3>
+  <p>Web development is one of the most creative and impactful fields in the tech industry today. Choosing coding as a path in web development empowers individuals to build, shape, and optimize websites and applications that reach millions of users worldwide. Coding helps transform ideas into real, functional products—from simple blogs to advanced web platforms like e-commerce sites and social networks.</p>
+
+  <p>With strong coding skills, you can control both the appearance (frontend) and functionality (backend) of websites. It also opens opportunities to customize user experiences, enhance performance, and apply innovative technologies like APIs, animations, and artificial intelligence. As businesses increasingly rely on their digital presence, skilled web developers are in higher demand than ever before.</p>
+</article>
+<article>
+  <h3>Why We Use Node.js</h3>
+  <p>Node.js is a powerful runtime environment that allows developers to execute JavaScript code outside of a browser. It is widely used for building fast, scalable server-side applications. Node.js operates on a non-blocking, event-driven architecture, which makes it highly efficient and suitable for real-time applications like chat apps, live updates, and streaming services.</p>
+
+  <p>One of Node.js’s greatest strengths is that it allows developers to use JavaScript on both the frontend and backend, simplifying the development process and improving code reuse. With a massive ecosystem of open-source libraries via npm (Node Package Manager), Node.js has become the go-to platform for modern backend development.</p>
+</article>
+<article>
+  <h3>Why We Use Express.js</h3>
+  <p>Express.js is a lightweight and flexible web application framework for Node.js. It simplifies the process of building robust APIs and web servers. With its minimalistic structure, Express lets developers create secure and scalable backend services without unnecessary overhead.</p>
+
+  <p>It also supports powerful features like middleware integration, routing, error handling, and template engines, making the development process more efficient and organized. Express is ideal for both small projects and large enterprise applications. It’s fast, unopinionated, and widely adopted by the JavaScript community for building RESTful APIs and full-stack web apps.</p>
+</article>
+<article>
+  <h3>The Importance of Full Stack Development in Today's Industry</h3>
+  <p>Full stack development refers to the ability to work on both the frontend (client-side) and backend (server-side) of web applications. In today’s industry, full stack developers are highly valued for their versatility, problem-solving skills, and ability to see the bigger picture of software development.</p>
+
+  <p>They can handle every part of the development process—from designing responsive interfaces with HTML/CSS and JavaScript, to managing databases, servers, and APIs. This allows for faster development cycles, better team collaboration, and more cohesive project outcomes. As companies look for agile, cost-effective development strategies, full stack development has become an essential approach in modern tech environments.</p>
+</article>
+
+    </section>
+
+
+
+  <section id="education">
+    <h2>My Education Certificates</h2>
+    <div class="education-grid">
+      <div class="certificate">
+        <img src="images/edu.jpeg" alt="School Certificate">
+        <div class="certificate-info">School: The Educators<br>Class: Matriculation<br>Marks: 1004/1100</div>
+      </div>
+      <div class="certificate">
+        <img src="images/pgc.jpeg" alt="College Certificate">
+        <div class="certificate-info">College: Punjab College Okara<br>Class: Inter<br>Marks: 1004/1100</div>
+      </div>
+      <div class="certificate">
+        <img src="images/uni.jpeg" alt="University Degree">
+        <div class="certificate-info">University: University of Central Punjab<br>Program: BS Computer Science<br>CGPA: 4/4</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section id="contact">
+  <h2>Contact Me</h2>
+  <form action="https://formsubmit.co/areeshaumar44@gmail.com" method="POST">
+    <input type="text" name="name" placeholder="Your Name" required>
+     <input type="email" name="email" placeholder="Your email" required>
+    <textarea name="comment" placeholder="Your Comment" required></textarea>
+    <input type="number" name="rating" placeholder="Work Rating (1-5)" min="1" max="5" required>
+    <button type="submit">Submit</button>
+  </form>
+</section>
+
+<footer>
+  <p>&copy; Made with ❤️ by Areesha Umar</p>
+</footer>
+<script>
+  const hamburger = document.getElementById('hamburger-btn');
+  const navLinks = document.getElementById('nav-links');
+  
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('show');
+    
+    // Update aria-expanded for accessibility
+    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', !expanded);
+  });
+
+  // Optional: allow toggling menu with keyboard (Enter or Space)
+  hamburger.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      hamburger.click();
+    }
+  });
+    function showProjectImages(projectId) {
+    const allProjects = document.querySelectorAll('.project-images');
+    allProjects.forEach(div => div.style.display = 'none');
+    const selected = document.getElementById(projectId);
+    if (selected) selected.style.display = 'flex';
+  }
+
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').style.display = 'flex';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+  }
+
+  const contactForm = document.querySelector('#contact form');
+  contactForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    alert('Thanks for reviewing! Your message has been submitted.');
+    contactForm.submit();
+  });
+</script>
+
+</body>
+</html>
